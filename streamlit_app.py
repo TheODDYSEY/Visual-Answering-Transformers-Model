@@ -53,50 +53,55 @@ with st.sidebar:
         - **Caching**: `@st.cache_resource`  
         """
     )
+# Layout with two columns
+col1, col2 = st.columns([1, 1])  # Equal width columns
 
-# Image upload section
-uploaded_file = st.file_uploader("📂 Upload an image...", type=["jpg", "jpeg", "png"])
+with col1:
+    # Image upload section
+    uploaded_file = st.file_uploader("📂 Upload an image...", type=["jpg", "jpeg", "png"])
 
-if uploaded_file:
-    # Load and display image
-    image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="📷 Uploaded Image", use_column_width=True)
+    if uploaded_file:
+        # Load and display image
+        image = Image.open(uploaded_file).convert("RGB")
+        st.image(image, caption="📷 Uploaded Image", use_column_width=True)
 
-    # Image Metadata
-    st.write("### 📝 Image Details:")
-    st.write(f"📌 **Format**: {image.format}")
-    st.write(f"📌 **Size**: {image.size[0]} x {image.size[1]} pixels")
-    st.write(f"📌 **Color Mode**: {image.mode}")
+        # Image Metadata
+        st.write("### 📝 Image Details:")
+        st.write(f"📌 **Format**: {image.format}")
+        st.write(f"📌 **Size**: {image.size[0]} x {image.size[1]} pixels")
+        st.write(f"📌 **Color Mode**: {image.mode}")
 
-    # Predefined universal questions
-    universal_questions = [
-        "What is happening in the image?",
-        "Describe the image in detail.",
-        "How many people or objects are in the image?",
-        "What colors are present in the image?",
-        "What is the background of the image?",
-        "Is there any text in the image? If yes, what does it say?",
-        "What emotions are visible in the image?",
-        "Is this image taken indoors or outdoors?",
-        "What time of day does this image appear to be?",
-        "Is there any movement happening in the image?"
-    ]
+with col2:
+    if uploaded_file:
+        # Predefined universal questions
+        universal_questions = [
+            "What is happening in the image?",
+            "Describe the image in detail.",
+            "How many people or objects are in the image?",
+            "What colors are present in the image?",
+            "What is the background of the image?",
+            "Is there any text in the image? If yes, what does it say?",
+            "What emotions are visible in the image?",
+            "Is this image taken indoors or outdoors?",
+            "What time of day does this image appear to be?",
+            "Is there any movement happening in the image?"
+        ]
 
-    # Allow multiple questions selection
-    selected_questions = st.multiselect("📝 Select questions:", universal_questions)
-    custom_question = st.text_input("✍️ Or enter a custom question:")
+        # Allow multiple questions selection
+        selected_questions = st.multiselect("📝 Select questions:", universal_questions)
+        custom_question = st.text_input("✍️ Or enter a custom question:")
 
-    # If custom question is provided, add it to the list
-    if custom_question:
-        selected_questions.append(custom_question)
+        # If custom question is provided, add it to the list
+        if custom_question:
+            selected_questions.append(custom_question)
 
-    # Button to get answers
-    if st.button("🤖 Get Answers"):
-        if selected_questions:
-            st.write("### 🔍 AI Answers:")
-            for question in selected_questions:
-                answer = get_answer_blip(image, question)
-                st.write(f"**Question:** {question}")
-                st.write(f"**Answer:** {answer}\n")
-        else:
-            st.warning("⚠️ Please select or enter at least one question.")
+        # Button to get answers
+        if st.button("🤖 Get Answers"):
+            if selected_questions:
+                st.write("### 🔍 AI Answers:")
+                for question in selected_questions:
+                    answer = get_answer_blip(image, question)
+                    st.write(f"**Question:** {question}")
+                    st.write(f"**Answer:** {answer}\n")
+            else:
+                st.warning("⚠️ Please select or enter at least one question.")
