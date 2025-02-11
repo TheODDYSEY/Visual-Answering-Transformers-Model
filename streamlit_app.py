@@ -73,7 +73,7 @@ with st.sidebar:
 # Sidebar - Author Information
 st.sidebar.markdown("---")
 st.sidebar.write("👤 **Author**: Moses Sabila")
-st.sidebar.write("[🔗 GitHub Repository](https://github.com/yourusername/yourproject)")
+st.sidebar.write("[🔗 GitHub Repository](https://github.com/TheODDYSEY/Visual-Answering-Transformers-Model.git)")
 
 # Layout with two columns
 col1, col2 = st.columns([1, 1])  # Equal width columns
