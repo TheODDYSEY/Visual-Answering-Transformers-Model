@@ -1,6 +1,6 @@
 
 <div align="center"> 
-  <h1 align="center">📸 AI-Powered Image Analysis </h1>  
+  <h1 align="center">📸 Visual-Answering-Transformers-Model </h1>  
   <h3 align="center">An intelligent image analysis application using BLIP and Streamlit</h3>  
   <p align="center">Upload an image, ask questions, and get AI-powered answers instantly.</p>  
 
