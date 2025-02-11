@@ -88,7 +88,7 @@ Ensure you have the following installed:
 ### **Cloning the Repository**  
 
 ```bash
-git clone https://github.com/your-username/ai-image-question-answering.git
+git clone https://github.com/TheODDYSEY/Visual-Answering-Transformers-Model.git
 cd ai-image-question-answering
 ```
 
@@ -160,7 +160,7 @@ if uploaded_image is not None:
 ## <a name="links">🔗 Links</a>
 
 - 🔗 **Live Demo**: [Try it here](https://theoddysey-visual-answering-transformers-m-streamlit-app-vimg1u.streamlit.app/)  
-- 📜 **Project Repository**: [GitHub](https://github.com/your-username/ai-image-question-answering)  
+- 📜 **Project Repository**: [GitHub](https://github.com/TheODDYSEY/Visual-Answering-Transformers-Model.git)  
 - 📚 **BLIP Model**: [Hugging Face](https://huggingface.co/Salesforce/blip-vqa-base)  
 
 ---
@@ -172,7 +172,7 @@ if uploaded_image is not None:
 - ✅ Extend support for **OCR-based text recognition**.  
 - ✅ Enhance UI with **interactive visualization** options.  
 
-**License**  
+## **License**  
 This project is **open-source** under the **MIT License**.  
 
 ---
