@@ -2,18 +2,34 @@ import streamlit as st
 from PIL import Image
 from transformers import BlipProcessor, BlipForQuestionAnswering
 import torch
-
+import time 
 # Detect if GPU is available
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+# Set wide layout for the app
+st.set_page_config(page_title="AI Image Q&A", layout="wide")
+
+# Custom CSS for full-width expansion
+st.markdown("""
+    <style>
+        .main .block-container {
+            max-width: 90%;
+            padding: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Load BLIP model and processor
 @st.cache_resource
 def load_model():
     """Loads BLIP Processor and Model with GPU support if available."""
-    st.sidebar.write(f"\U0001F680 Running on: **{DEVICE.upper()}**")
-    processor = BlipProcessor.from_pretrained("Salesforce/blip-vqa-base")
-    model = BlipForQuestionAnswering.from_pretrained("Salesforce/blip-vqa-base").to(DEVICE)
+    with st.spinner("🚀 Loading AI Model... Please wait!"):
+        time.sleep(2)  # Simulate loading delay
+        processor = BlipProcessor.from_pretrained("Salesforce/blip-vqa-base")
+        model = BlipForQuestionAnswering.from_pretrained("Salesforce/blip-vqa-base").to(DEVICE)
+        st.sidebar.success(f"✅ Model Loaded! Running on: **{DEVICE.upper()}**")
     return processor, model
+
 
 processor, model = load_model()
 
@@ -43,16 +59,22 @@ st.sidebar.write(
 with st.sidebar:
     st.header("📌 App Technical Details")
     st.markdown(
-        """
-        - **Model**: [BLIP VQA Base](https://huggingface.co/Salesforce/blip-vqa-base)  
-        - **Framework**: 🤖 Transformers (Hugging Face)  
-        - **Backend**: PyTorch  
-        - **Frontend**: Streamlit  
-        - **GPU Support**: ✅ Yes (if available)  
-        - **Image Processing**: PIL (Pillow)  
-        - **Caching**: `@st.cache_resource`  
-        """
+    f"""
+    - **Model:** [BLIP VQA Base](https://huggingface.co/Salesforce/blip-vqa-base)  
+    - **Framework:** 🤖 Transformers (Hugging Face)  
+    - **Backend:** PyTorch  
+    - **Frontend:** Streamlit  
+    - **GPU Support:** {'✅ Yes' if DEVICE == 'cuda' else '❌ No (Running on CPU)'}  
+    - **Image Processing:** PIL (Pillow)  
+    - **Caching:** `@st.cache_resource`
+    """
     )
+    
+# Sidebar - Author Information
+st.sidebar.markdown("---")
+st.sidebar.write("👤 **Author**: Moses Sabila")
+st.sidebar.write("[🔗 GitHub Repository](https://github.com/yourusername/yourproject)")
+
 # Layout with two columns
 col1, col2 = st.columns([1, 1])  # Equal width columns
 
@@ -98,10 +120,12 @@ with col2:
         # Button to get answers
         if st.button("🤖 Get Answers"):
             if selected_questions:
-                st.write("### 🔍 AI Answers:")
+                st.subheader("🔍 AI Answers:")
                 for question in selected_questions:
-                    answer = get_answer_blip(image, question)
-                    st.write(f"**Question:** {question}")
-                    st.write(f"**Answer:** {answer}\n")
+                    with st.spinner(f"🤖 Thinking about: '{question}'..."):
+                        time.sleep(2)  # Simulate AI processing time
+                        answer = get_answer_blip(image, question)
+                        st.success(f"**Q:** {question}")
+                        st.write(f"**A:** {answer}\n")
             else:
                 st.warning("⚠️ Please select or enter at least one question.")
